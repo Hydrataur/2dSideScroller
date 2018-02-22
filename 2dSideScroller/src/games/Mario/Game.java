@@ -6,8 +6,6 @@ import javax.swing.JFrame;
 
 @SuppressWarnings("serial")
 public class Game extends JFrame{
-
-	//////ai lmao no other
 	
 	public static void main(String[] args) {
 		//Delay creation to allow for processing of GUI first

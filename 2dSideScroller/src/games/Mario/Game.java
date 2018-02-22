@@ -7,6 +7,9 @@ import javax.swing.JFrame;
 @SuppressWarnings("serial")
 public class Game extends JFrame{
 
+	//////ai lmao
+	
+	
 	public static void main(String[] args) {
 		//Delay creation to allow for processing of GUI first
 		EventQueue.invokeLater(new Runnable() {

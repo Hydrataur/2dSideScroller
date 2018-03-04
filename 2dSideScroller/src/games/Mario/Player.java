@@ -19,7 +19,7 @@ public class Player {
 	private boolean touchingRightWall=false;
 	
 	//Combat info
-	int damage;
+	int damage=10;
 	int maxHP;
 	int currentHP;
 	

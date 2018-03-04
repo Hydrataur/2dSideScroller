@@ -279,14 +279,20 @@ public class MarioBoard extends JPanel implements ActionListener  {
 	
 	void attackFront() {
 		
+		System.out.println(enemies[0].getX()+" "+distance);
+		System.out.println(enemies[0].getX()+distance-mario.getX()+100);
+		
 		for(int i=0; i<enemies.length;i++) {
 			int dist=101;
+			
 			if(mario.getDirection().equals("Right"))
-				dist=enemies[i].getX()-distance+mario.getX()+100;
+				dist=enemies[i].getX()+distance-mario.getX()+100;
 			if(mario.getDirection().equals("Left"))
-				dist=distance-mario.getX()-enemies[i].getX();
-			if(proximity(mario.getY(), enemies[i].getY(), 50)&&dist<100)
+				dist=distance-mario.getX()+enemies[i].getX();
+			if(proximity(mario.getY(), enemies[i].getY(), 100)&&dist<=300) {
 				enemies[i].takeDamage(mario.getDamage());
+				System.out.println("hit");
+			}
 		}
 		
 	}

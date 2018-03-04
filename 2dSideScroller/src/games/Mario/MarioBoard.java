@@ -280,12 +280,12 @@ public class MarioBoard extends JPanel implements ActionListener  {
 	void attackFront() {
 		
 		for(int i=0; i<enemies.length;i++) {
-			int dist;
+			int dist=101;
 			if(mario.getDirection().equals("Right"))
-				dist=enemies[i].getX()-distance+mario.getX();
+				dist=enemies[i].getX()-distance+mario.getX()+100;
 			if(mario.getDirection().equals("Left"))
 				dist=distance-mario.getX()-enemies[i].getX();
-			if(proximity(mario.getY(), enemies[i].getY(), 50))
+			if(proximity(mario.getY(), enemies[i].getY(), 50)&&dist<100)
 				enemies[i].takeDamage(mario.getDamage());
 		}
 		
@@ -305,7 +305,7 @@ public class MarioBoard extends JPanel implements ActionListener  {
 					((JumpingZombie) enemies[i]).isJumping();
 					enemyIcons[i]=new ImageIcon("marioImagesNew/enemies/JumpingZombie"+enemies[i].getDirection()+".png");
 				}
-				enemies[i].move();
+				//enemies[i].move();
 			}
 			if(mario.getMovingLeft()&&distance<0) {
 				distance+=50;

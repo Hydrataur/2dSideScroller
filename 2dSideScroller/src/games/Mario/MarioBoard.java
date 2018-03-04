@@ -69,8 +69,8 @@ public class MarioBoard extends JPanel implements ActionListener  {
 		
 	//Spikes
 		public Spike[] spikes= {
-				new Spike(-700, 1200, 100, 100), new Spike(-800, 1200, 100, 100),
-				new Spike(-900, 1200, 100, 100), new Spike (-2800, 1200, 100, 100)
+				new Spike(-700, 1200), new Spike(-800, 1200),
+				new Spike(-900, 1200), new Spike (-2800, 1200)
 		};
 		
 	//Walls

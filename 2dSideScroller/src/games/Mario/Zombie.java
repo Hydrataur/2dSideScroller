@@ -18,11 +18,17 @@ public class Zombie {
 	private boolean touchingLeftWall=false;
 	private boolean touchingRightWall=false;
 	
+	//Combat info
+	int damage;
+	int hp;
+	
 	//Constructor
 	public Zombie(int x, int y, String direction, boolean movingLeft) {
 		this.x=x;
 		this.y=y;
 		this.direction=direction;
+		damage=10;
+		hp=50;
 		if(movingLeft) {
 			this.movingLeft=true;
 			this.movingRight=false;
@@ -85,6 +91,18 @@ public class Zombie {
 	}
 	public void setTouchingLeftWall(Boolean TouchingLeftWall) {
 		this.touchingLeftWall=TouchingLeftWall;
+	}
+	
+	public int getDamage() {
+		return damage;
+	}
+	public int getHP() {
+		return hp;
+	}
+	public void takeDamage(int damage) {
+		hp-=damage;
+		if(hp<=0)
+			kill();
 	}
 	
 	//Kill

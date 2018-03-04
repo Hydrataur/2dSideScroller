@@ -2,8 +2,11 @@ package games.Mario;
 
 public class Spike extends Wall{
 
-	public Spike(int x, int y, int length, int height) {
-		super(x, y, length, height);
+	int damage;
+	
+	public Spike(int x, int y) {
+		super(x, y, 100, 100);
+		damage=50;
 	}
 	
 }

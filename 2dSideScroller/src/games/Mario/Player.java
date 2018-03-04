@@ -18,6 +18,11 @@ public class Player {
 	private boolean touchingLeftWall=false;
 	private boolean touchingRightWall=false;
 	
+	//Combat info
+	int damage;
+	int maxHP;
+	int currentHP;
+	
 	//Stores current direction
 	private boolean movingLeft;
 	private boolean movingRight;

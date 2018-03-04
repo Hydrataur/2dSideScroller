@@ -1,7 +1,5 @@
 package games.Mario;
 
-import javax.swing.ImageIcon;
-
 public class FinishFlag extends Wall{
 
 	private boolean touched;

@@ -126,4 +126,17 @@ public class Player {
 	public void setFalling(Boolean falling) {
 		this.falling=falling;
 	}
+	
+	public int getDamage() {
+		return damage;
+	}
+	public int getHP() {
+		return currentHP;
+	}
+	public int getMaxHP() {
+		return maxHP;
+	}
+	public void takeDamage(int damage) {
+		currentHP-=damage;
+	}
 }

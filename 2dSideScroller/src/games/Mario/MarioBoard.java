@@ -16,8 +16,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-import org.omg.PortableInterceptor.InterceptorOperations;
-
 @SuppressWarnings("serial")
 public class MarioBoard extends JPanel implements ActionListener  {
 
@@ -279,6 +277,20 @@ public class MarioBoard extends JPanel implements ActionListener  {
 			timer.stop();
 	}
 	
+	void attackFront() {
+		
+		for(int i=0; i<enemies.length;i++) {
+			int dist;
+			if(mario.getDirection().equals("Right"))
+				dist=enemies[i].getX()-distance+mario.getX();
+			if(mario.getDirection().equals("Left"))
+				dist=distance-mario.getX()-enemies[i].getX();
+			if(proximity(mario.getY(), enemies[i].getY(), 50))
+				enemies[i].takeDamage(mario.getDamage());
+		}
+		
+	}
+	
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(inGame) {
@@ -333,7 +345,12 @@ public class MarioBoard extends JPanel implements ActionListener  {
 		@Override
 		public void keyPressed(KeyEvent e) {
 			int key=e.getKeyCode();
+			
 			if(key==KeyEvent.VK_SPACE) {
+				attackFront();
+			}
+			
+			if(key==KeyEvent.VK_W||key==KeyEvent.VK_UP) {
 				if(!mario.getJumping()&&!mario.getFalling()) {
 					mario.setJumping(true);
 					mario.setJumpHeight();

@@ -20,8 +20,8 @@ public class Player {
 	
 	//Combat info
 	int damage=10;
-	int maxHP;
-	int currentHP;
+	int maxHP=100;
+	int currentHP=maxHP;
 	
 	//Stores current direction
 	private boolean movingLeft;
@@ -135,6 +135,9 @@ public class Player {
 	}
 	public int getMaxHP() {
 		return maxHP;
+	}
+	public void refreshHealth() {
+		currentHP=maxHP;
 	}
 	public void takeDamage(int damage) {
 		currentHP-=damage;

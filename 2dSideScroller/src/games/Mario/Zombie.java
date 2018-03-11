@@ -103,6 +103,12 @@ public class Zombie {
 		hp-=damage;
 		if(hp<=0)
 			kill();
+		else {
+			if(movingLeft)
+				x+=200;
+			else
+				x-=200;
+		}
 	}
 	
 	//Kill

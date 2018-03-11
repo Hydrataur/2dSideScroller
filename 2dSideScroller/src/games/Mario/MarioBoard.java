@@ -23,7 +23,9 @@ public class MarioBoard extends JPanel implements ActionListener  {
 		private final static int BOARDWIDTH = 3200;
 		private final static int BOARDHEIGHT = 1700;
 	
-		
+	// Counts how many frames attack anim is onscreen
+		int attackTimer=0;
+	
 	//Distance from start
 		int distance=0;
 	
@@ -162,6 +164,8 @@ public class MarioBoard extends JPanel implements ActionListener  {
 		inGame=true;
 		mario.setDirection("Right");
 		mario.takeMoney(mario.getMoney());
+		mario.refreshHealth();
+		
 		distance=0;
 		flag.setTouched(false);
 		
@@ -270,8 +274,16 @@ public class MarioBoard extends JPanel implements ActionListener  {
 				enemies[i].kill();
 				mario.giveMoney(50);
 			}
-			if ((proximity(Math.abs(distance-mario.getX()), enemies[i].getX(), 100)) && (proximity(mario.getY(), enemies[i].getY(), 100)))
-				inGame = false;
+			if ((proximity(Math.abs(distance-mario.getX()), enemies[i].getX(), 100)) && (proximity(mario.getY(), enemies[i].getY(), 100))) {
+				mario.takeDamage(enemies[i].getDamage());
+				if(mario.getHP()<=0)
+					inGame=false;
+				if(Math.abs(enemies[i].getX())>Math.abs(distance-mario.getX()))
+					enemies[i].setX(enemies[i].getX()+200);
+				else
+					enemies[i].setX(enemies[i].getX()-200);
+				System.out.println(Math.abs(enemies[i].getX())+" "+Math.abs(distance-mario.getX()));
+			}
 		}
 		if (!inGame)
 			timer.stop();
@@ -281,7 +293,7 @@ public class MarioBoard extends JPanel implements ActionListener  {
 		
 		System.out.println(enemies[0].getX()+" "+distance);
 		System.out.println(enemies[0].getX()+distance-mario.getX()+100);
-		
+		attackTimer=5;
 		for(int i=0; i<enemies.length;i++) {
 			int dist=101;
 			
@@ -291,7 +303,8 @@ public class MarioBoard extends JPanel implements ActionListener  {
 				dist=distance-mario.getX()+enemies[i].getX();
 			if(proximity(mario.getY(), enemies[i].getY(), 100)&&dist<=300) {
 				enemies[i].takeDamage(mario.getDamage());
-				System.out.println("hit");
+				if(enemies[i].getHP()<=0)
+					mario.giveMoney(50);
 			}
 		}
 		
@@ -311,7 +324,7 @@ public class MarioBoard extends JPanel implements ActionListener  {
 					((JumpingZombie) enemies[i]).isJumping();
 					enemyIcons[i]=new ImageIcon("marioImagesNew/enemies/JumpingZombie"+enemies[i].getDirection()+".png");
 				}
-				//enemies[i].move();
+				enemies[i].move();
 			}
 			if(mario.getMovingLeft()&&distance<0) {
 				distance+=50;
@@ -342,6 +355,11 @@ public class MarioBoard extends JPanel implements ActionListener  {
 		if(mario.getY()>BOARDHEIGHT) {
 			inGame=false;
 			timer.stop();
+		}
+		
+		if(attackTimer>0) {
+			attackTimer--;
+			marioIcon=new ImageIcon("marioImagesNew/player/Attack"+mario.getDirection()+".gif");
 		}
 		repaint();
 	}

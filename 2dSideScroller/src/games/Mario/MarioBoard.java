@@ -275,14 +275,10 @@ public class MarioBoard extends JPanel implements ActionListener  {
 				mario.giveMoney(50);
 			}
 			if ((proximity(Math.abs(distance-mario.getX()), enemies[i].getX(), 100)) && (proximity(mario.getY(), enemies[i].getY(), 100))) {
+				enemies[i].takeDamage(0);
 				mario.takeDamage(enemies[i].getDamage());
 				if(mario.getHP()<=0)
 					inGame=false;
-				if(Math.abs(enemies[i].getX())>Math.abs(distance-mario.getX()))
-					enemies[i].setX(enemies[i].getX()+200);
-				else
-					enemies[i].setX(enemies[i].getX()-200);
-				System.out.println(Math.abs(enemies[i].getX())+" "+Math.abs(distance-mario.getX()));
 			}
 		}
 		if (!inGame)

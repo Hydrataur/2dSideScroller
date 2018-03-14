@@ -21,6 +21,7 @@ public class Zombie {
 	//Combat info
 	int damage;
 	int hp;
+	int knockBackVelocity;
 	
 	//Constructor
 	public Zombie(int x, int y, String direction, boolean movingLeft) {
@@ -99,15 +100,25 @@ public class Zombie {
 	public int getHP() {
 		return hp;
 	}
+	
+	public int getKnockBackV() {
+		return knockBackVelocity;
+	}
+	public void setKnockBackV() {
+		if(knockBackVelocity>0)
+			knockBackVelocity-=10;
+	}
+	
 	public void takeDamage(int damage) {
 		hp-=damage;
 		if(hp<=0)
 			kill();
 		else {
-			if(movingLeft)
-				x+=200;
-			else
-				x-=200;
+			//if(movingLeft)
+				//x+=200;
+			//else
+			//x-=200;
+			knockBackVelocity=50;
 		}
 	}
 	
@@ -119,10 +130,19 @@ public class Zombie {
 	
 	//Move
 	public void move() {
-		if(movingRight)
-			setX(getX()+50);
-		if(movingLeft)
-			setX(getX()-50);
+		if(knockBackVelocity==0) {
+			if(movingRight)
+				setX(getX()+50);
+			if(movingLeft)
+				setX(getX()-50);
+		}
+		else {
+			if(movingLeft)
+				x+=knockBackVelocity;
+			else
+				x-=knockBackVelocity;
+			setKnockBackV();
+		}
 		if(falling)
 			setY(getY()+50);
 	}

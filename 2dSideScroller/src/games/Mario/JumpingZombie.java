@@ -18,9 +18,6 @@ public class JumpingZombie extends Zombie {
 		return jumping;
 	}
 	
-	public void setMaxY() {
-		this.maxY=maxY;
-	}
 	public void setJumping() {
 		jumping=true;
 		falling=false;
@@ -28,10 +25,19 @@ public class JumpingZombie extends Zombie {
 	
 	@Override
 	public void move() {
-		if (movingRight)
-			setX(getX() + 10);
-		if (movingLeft)
-			setX(getX() - 10);
+		if(knockBackVelocity==0) {
+			if (movingRight)
+				setX(getX() + 10);
+			if (movingLeft)
+				setX(getX() - 10);
+		}
+		else {
+			if(movingLeft)
+				setX(getX()+knockBackVelocity);
+			else
+				setX(getX()-knockBackVelocity);
+			setKnockBackV();
+		}
 		if (falling)
 			setY(getY() + 20);
 		if (jumping)

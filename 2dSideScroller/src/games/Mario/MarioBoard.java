@@ -270,7 +270,7 @@ public class MarioBoard extends JPanel implements ActionListener  {
 	
 	void checkEnemyCollisions() {
 		for (int i = 0; i < enemies.length; i++) {
-			if(proximity(Math.abs(distance-mario.getX()), enemies[i].getX(), 100)&& (proximity(mario.getY()+80, enemies[i].getY(), 20))) {
+			if(proximity(Math.abs(distance-mario.getX()), enemies[i].getX(), 100)&& (proximity(mario.getY()+80, enemies[i].getY(), 20))&&mario.getFalling()==true&&mario.getJumping()==false) {
 				enemies[i].kill();
 				mario.giveMoney(50);
 			}

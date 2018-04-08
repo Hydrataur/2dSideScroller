@@ -66,10 +66,10 @@ public class Game extends JFrame {
 				JLabel jumpGif = new JLabel(jumpIcon2);
 				JLabel runGif = new JLabel(runIcon2);
 				JLabel attackGif = new JLabel(attackIcon2);
-				JTextArea jumpInstruc = new JTextArea("Press the W key or the UP arrow key to jump");
-				JTextArea runInstruc = new JTextArea("Press the LEFT and RIGHT arrow keys or the A and D keys to move",
+				JTextArea jumpInstruc = new JTextArea("W or UP to jump");
+				JTextArea runInstruc = new JTextArea("LEFT/RIGHT or A/D to move",
 						500, 500);
-				JTextArea attackInstruc = new JTextArea("Press the SPACE key to attack");
+				JTextArea attackInstruc = new JTextArea("SPACE to attack");
 
 				jumpInstruc.setFont(new Font("Impact", Font.BOLD, 30));
 				runInstruc.setFont(new Font("Impact", Font.BOLD, 30));

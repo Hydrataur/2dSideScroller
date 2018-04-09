@@ -58,13 +58,14 @@ public class MarioBoard extends JPanel implements ActionListener  {
 		
 	//Hostiles
 		Zombie[] enemies= {new Zombie(2000, 1300, "Left", true), new Zombie(2000, 1300, "Right", false),
-				new JumpingZombie(2000, 1300, "Left", true)
+				new JumpingZombie(2000, 1300, "Left", true), new Shooter(2500, 1200, "Left", true)
 		};
 		
 	//Hostile images
 		ImageIcon[] enemyIcons= {new ImageIcon("marioImagesNew/enemies/FlatZombieLeft.png"), new ImageIcon("marioImagesNew/enemies/FlatZombieRight.png"),
-				new ImageIcon("marioImagesNew/enemies/JumpingZombieLeft.png")
+				new ImageIcon("marioImagesNew/enemies/JumpingZombieLeft.png"), new ImageIcon("marioImagesNew/enemies/Shooter/ShooterWaitLeft.png")
 		};
+		ImageIcon projectileImage=new ImageIcon("marioImagesNew/enemies/Shooter/Projectile.gif");
 		
 		
 	//Spikes
@@ -115,9 +116,12 @@ public class MarioBoard extends JPanel implements ActionListener  {
 			//ImageIcon marioIcon=new ImageIcon("marioImages/smallMarioLooking"+mario.getDirection()+".gif");
 			g.drawImage(marioIcon.getImage(), mario.getX(), mario.getY()-50, 150, 150, this);
 			
-			for(int i=0; i<enemies.length; i++)
+			for(int i=0; i<enemies.length; i++) {
 				g.drawImage(enemyIcons[i].getImage(), enemies[i].getX()+distance, enemies[i].getY(), 100, 100, this);
-			
+				if(enemies[i] instanceof Shooter)
+					if(((Shooter)enemies[i]).getProjectile()!=null)
+						g.drawImage(projectileImage.getImage(), ((Shooter)enemies[i]).getProjectile().getX(), ((Shooter)enemies[i]).getProjectile().getY(), 50, 50, this);
+			}
 			//g.drawRect(distance-flag.getX(), flag.getY(), flag.getLength(), flag.getHeight());
 			g.drawImage(flagIcon.getImage(), distance-flag.getX(), flag.getY(), flag.getLength(), flag.getHeight(), this);
 			
@@ -172,6 +176,7 @@ public class MarioBoard extends JPanel implements ActionListener  {
 		enemies[0]=new Zombie(2000, 1300, "Left", true);
 		enemies[1]=new Zombie(2000, 1300, "Right", false);
 		enemies[2]=new JumpingZombie(2000, 1300, "Left", true);
+		enemies[3]=new Shooter(2500, 1200, "Left", true);
 		
 		timer = new Timer(speed, this);
 		timer.start();
@@ -239,6 +244,7 @@ public class MarioBoard extends JPanel implements ActionListener  {
 		boolean jumper=false;
 		if(c instanceof JumpingZombie)
 			jumper=true;	
+		
 		if(!jumper)
 			c.setFalling(true);
 		for(int i=0; i<walls.length; i++) {
@@ -320,7 +326,14 @@ public class MarioBoard extends JPanel implements ActionListener  {
 					((JumpingZombie) enemies[i]).isJumping();
 					enemyIcons[i]=new ImageIcon("marioImagesNew/enemies/JumpingZombie"+enemies[i].getDirection()+".png");
 				}
-				enemies[i].move();
+					enemies[i].move();
+				if(enemies[i] instanceof Shooter) {
+					enemyIcons[i]=new ImageIcon("marioImagesNew/enemies/Shooter/ShooterWait"+enemies[i].getDirection()+".png");
+					if(proximity(Math.abs(distance-mario.getX()), enemies[i].getX(), 1000)) {
+						((Shooter)enemies[i]).shoot(mario.getX(), mario.getY());
+						enemyIcons[i]=new ImageIcon("marioImagesNew/enemies/Shooter/ShooterShoot"+enemies[i].getDirection()+".png");
+					}
+				}
 			}
 			if(mario.getMovingLeft()&&distance<0) {
 				distance+=50;

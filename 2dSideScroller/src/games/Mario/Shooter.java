@@ -5,6 +5,7 @@ public class Shooter extends Zombie{
 	public Shooter(int x, int y, String direction, boolean movingLeft) {
 		super(x, y, direction, movingLeft);
 		shotTimer=0;
+		damage=30;
 	}
 	
 	boolean inRange;
@@ -21,6 +22,10 @@ public class Shooter extends Zombie{
 			p.move();
 			shotTimer--;
 		}
+	}
+	
+	public void deleteProjectile() {
+		p=null;
 	}
 	
 	public Projectile getProjectile() {

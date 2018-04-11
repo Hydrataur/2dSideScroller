@@ -1,9 +1,7 @@
 package games.Mario;
 
-public class Projectile {
+public class Projectile extends Zombie{
 
-	int x;
-	int y;
 	int startX;
 	int startY;
 	int velocity;
@@ -11,8 +9,7 @@ public class Projectile {
 	int targetY;
 	
 	public Projectile(int x, int y, int targetX, int targetY) {
-		this.x=x;
-		this.y=y;
+		super(x, y);
 		startX=x;
 		startY=y;
 		this.targetX=targetX;
@@ -20,28 +17,20 @@ public class Projectile {
 		velocity=0;
 	}
 	
-	public int getX() {
-		return x;
-	}
-	public void setX(int x) {
-		this.x=x;
-	}
-	public int getY() {
-		return y;
-	}
-	public void setY(int y) {
-		this.y=y;
+	public void delete() {
+		setX(5000);
+		setX(5000);
 	}
 	
 	public void move() {
-		//if(isUp()) {
-			//y+=velocity;
-			//velocity-=1;
-		//}
-	//	else {
-		//	y-=velocity;
-	//		velocity+=1;
-//		}
+		if(isUp()) {
+			setY(getY()+velocity);
+			velocity+=1;
+		}
+		else {
+			setY(getY()-velocity);
+			velocity-=1;
+		}
 		if(isRight()) 
 			setX(getX()+20);
 		else
@@ -58,7 +47,7 @@ public class Projectile {
 	
 	public boolean isUp() {
 		int c=Math.abs(startX-targetX)/2;
-		if(Math.abs(x)<c)
+		if(Math.abs(getX())<c)
 			return true;
 		return false;
 	}

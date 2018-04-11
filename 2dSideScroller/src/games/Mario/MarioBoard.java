@@ -120,7 +120,7 @@ public class MarioBoard extends JPanel implements ActionListener  {
 				g.drawImage(enemyIcons[i].getImage(), enemies[i].getX()+distance, enemies[i].getY(), 100, 100, this);
 				if(enemies[i] instanceof Shooter)
 					if(((Shooter)enemies[i]).getProjectile()!=null)
-						g.drawImage(projectileImage.getImage(), ((Shooter)enemies[i]).getProjectile().getX(), ((Shooter)enemies[i]).getProjectile().getY(), 50, 50, this);
+						g.drawImage(projectileImage.getImage(), ((Shooter)enemies[i]).getProjectile().getX()+distance, ((Shooter)enemies[i]).getProjectile().getY(), 50, 50, this);
 			}
 			//g.drawRect(distance-flag.getX(), flag.getY(), flag.getLength(), flag.getHeight());
 			g.drawImage(flagIcon.getImage(), distance-flag.getX(), flag.getY(), flag.getLength(), flag.getHeight(), this);
@@ -244,6 +244,9 @@ public class MarioBoard extends JPanel implements ActionListener  {
 		boolean jumper=false;
 		if(c instanceof JumpingZombie)
 			jumper=true;	
+		if(c instanceof Shooter)
+			if(((Shooter)c).getProjectile()!=null)
+				checkEnemyWallCollisions(((Shooter)c).getProjectile());
 		
 		if(!jumper)
 			c.setFalling(true);
@@ -257,6 +260,8 @@ public class MarioBoard extends JPanel implements ActionListener  {
 					c.setMovingRight(false);
 					c.setMovingLeft(true);
 					c.setDirection("Left");
+					if(c instanceof Projectile)
+						((Projectile)c).delete();
 				}
 			}
 			if(c.getY()+100>walls[i].getY()&&c.getY()<walls[i].getY()+walls[i].getLength()) {
@@ -283,9 +288,20 @@ public class MarioBoard extends JPanel implements ActionListener  {
 			if ((proximity(Math.abs(distance-mario.getX()), enemies[i].getX(), 100)) && (proximity(mario.getY(), enemies[i].getY(), 100))) {
 				enemies[i].takeDamage(0);
 				mario.takeDamage(enemies[i].getDamage());
-				if(mario.getHP()<=0)
-					inGame=false;
 			}
+			
+			if(enemies[i] instanceof Shooter){
+				if(((Shooter)enemies[i]).getProjectile()!=null) {
+					if(proximity(Math.abs(distance-mario.getX()), ((Shooter)enemies[i]).getProjectile().getX(), 100) && proximity(Math.abs(mario.getY()), ((Shooter)enemies[i]).getProjectile().getY(), 100)) {
+						mario.takeDamage(enemies[i].getDamage());
+						((Shooter)enemies[i]).deleteProjectile();
+					}
+				}
+			}
+			
+			if(mario.getHP()<=0)
+				inGame=false;
+			
 		}
 		if (!inGame)
 			timer.stop();
@@ -308,6 +324,7 @@ public class MarioBoard extends JPanel implements ActionListener  {
 				if(enemies[i].getHP()<=0)
 					mario.giveMoney(50);
 			}
+			
 		}
 		
 	}

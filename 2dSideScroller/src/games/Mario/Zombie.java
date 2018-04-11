@@ -40,6 +40,11 @@ public class Zombie {
 		}
 	}
 	
+	public Zombie(int x, int y) {
+		this.x=x;
+		this.y=y;
+	}
+
 	//Getters and Setters
 	public int getX() {
 		return x;

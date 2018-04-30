@@ -18,8 +18,8 @@ public class Projectile extends Zombie{
 	}
 	
 	public void delete() {
-		setX(5000);
-		setX(5000);
+		setX(-5000);
+		setY(-5000);
 	}
 	
 	public void move() {
@@ -35,6 +35,7 @@ public class Projectile extends Zombie{
 			setX(getX()+20);
 		else
 			setX(getX()-20);
+		//System.out.println(getX()+" "+getY());
 	}
 	
 	public boolean isRight() {

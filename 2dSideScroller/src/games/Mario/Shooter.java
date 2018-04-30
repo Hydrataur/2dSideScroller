@@ -13,7 +13,7 @@ public class Shooter extends Zombie{
 	Projectile p;
 	
 	public void shoot(int targetX, int targetY) {
-		System.out.println("Shot fired");
+		//System.out.println("Shot fired");
 		if(shotTimer==0) {
 			p=new Projectile(getX(), getY(), targetX, targetY);
 			shotTimer=100;
@@ -25,7 +25,7 @@ public class Shooter extends Zombie{
 	}
 	
 	public void deleteProjectile() {
-		p=null;
+		p.delete();;
 	}
 	
 	public Projectile getProjectile() {

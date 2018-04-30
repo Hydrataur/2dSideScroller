@@ -260,8 +260,10 @@ public class MarioBoard extends JPanel implements ActionListener  {
 					c.setMovingRight(false);
 					c.setMovingLeft(true);
 					c.setDirection("Left");
-					if(c instanceof Projectile)
-						((Projectile)c).delete();
+					if(c instanceof Projectile) {
+						System.out.println(c.getX()+" "+c.getY());
+						//((Projectile)c).delete();
+					}
 				}
 			}
 			if(c.getY()+100>walls[i].getY()&&c.getY()<walls[i].getY()+walls[i].getLength()) {

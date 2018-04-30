@@ -58,12 +58,14 @@ public class MarioBoard extends JPanel implements ActionListener  {
 		
 	//Hostiles
 		Zombie[] enemies= {new Zombie(2000, 1300, "Left", true), new Zombie(2000, 1300, "Right", false),
-				new JumpingZombie(2000, 1300, "Left", true), new Shooter(2500, 1200, "Left", true)
+				new JumpingZombie(2000, 1300, "Left", true), new Shooter(2500, 1200, "Left", true),
+				new SpikyZombie(2000, 1300, "Left", true)
 		};
 		
 	//Hostile images
 		ImageIcon[] enemyIcons= {new ImageIcon("marioImagesNew/enemies/FlatZombieLeft.png"), new ImageIcon("marioImagesNew/enemies/FlatZombieRight.png"),
-				new ImageIcon("marioImagesNew/enemies/JumpingZombieLeft.png"), new ImageIcon("marioImagesNew/enemies/Shooter/ShooterWaitLeft.png")
+				new ImageIcon("marioImagesNew/enemies/JumpingZombieLeft.png"), new ImageIcon("marioImagesNew/enemies/Shooter/ShooterWaitLeft.png"),
+				new ImageIcon("marioImagesNew/enemies/SpikyZombieLeft.gif")
 		};
 		ImageIcon projectileImage=new ImageIcon("marioImagesNew/enemies/Shooter/Projectile.gif");
 		
@@ -129,6 +131,8 @@ public class MarioBoard extends JPanel implements ActionListener  {
 			g.setColor(Color.red);
 			
 			g.drawString("Munny: "+Integer.toString(mario.getMoney()), 50, 50);
+			
+			g.drawString("HP: "+Integer.toString(mario.getHP()), 50, 200);
 			
 			g.setFont(new Font("Verdana", Font.BOLD, 100));
 			if(paused)
@@ -284,7 +288,10 @@ public class MarioBoard extends JPanel implements ActionListener  {
 	void checkEnemyCollisions() {
 		for (int i = 0; i < enemies.length; i++) {
 			if(proximity(Math.abs(distance-mario.getX()), enemies[i].getX(), 100)&& (proximity(mario.getY()+80, enemies[i].getY(), 20))&&mario.getFalling()==true&&mario.getJumping()==false) {
-				enemies[i].kill();
+				if(enemies[i] instanceof SpikyZombie)
+					mario.takeDamage(enemies[i].getDamage());
+				else
+					enemies[i].kill();
 				mario.giveMoney(50);
 			}
 			if ((proximity(Math.abs(distance-mario.getX()), enemies[i].getX(), 100)) && (proximity(mario.getY(), enemies[i].getY(), 100))) {
@@ -352,6 +359,9 @@ public class MarioBoard extends JPanel implements ActionListener  {
 						((Shooter)enemies[i]).shoot(mario.getX(), mario.getY());
 						enemyIcons[i]=new ImageIcon("marioImagesNew/enemies/Shooter/ShooterShoot"+enemies[i].getDirection()+".png");
 					}
+				}
+				if(enemies[i] instanceof SpikyZombie) {
+					enemyIcons[i]=new ImageIcon("marioImagesNew/enemies/SpikyZombie"+enemies[i].getDirection()+".gif");
 				}
 			}
 			if(mario.getMovingLeft()&&distance<0) {

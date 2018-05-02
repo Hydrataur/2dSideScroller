@@ -30,6 +30,7 @@ public class Game extends JFrame {
 				JButton quit = new JButton("QUIT");
 				JButton back = new JButton("BACK");
 
+				
 				play.setBounds(1350, 500, 500, 200);
 				instructions.setBounds(1350, 750, 500, 200);
 				quit.setBounds(1350, 1000, 500, 200);

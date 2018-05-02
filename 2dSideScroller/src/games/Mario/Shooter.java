@@ -20,7 +20,7 @@ public class Shooter extends Zombie{
 		}
 		else {
 			p.move();
-			shotTimer--;
+			shotTimer =-3;
 		}
 	}
 	
@@ -30,6 +30,13 @@ public class Shooter extends Zombie{
 	
 	public Projectile getProjectile() {
 		return p;
+	}
+	
+	@Override
+	public void kill() {
+		setX(10000);
+		setY(3000);
+		deleteProjectile();
 	}
 	
 	@Override

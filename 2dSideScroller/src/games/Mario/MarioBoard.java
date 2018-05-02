@@ -57,9 +57,8 @@ public class MarioBoard extends JPanel implements ActionListener  {
 		ImageIcon spike=new ImageIcon("marioImagesNew/environment/Spike.png");
 		
 	//Hostiles
-		Zombie[] enemies= {new Zombie(2000, 1300, "Left", true), new Zombie(2000, 1300, "Right", false),
-				new JumpingZombie(2000, 1300, "Left", true), new Shooter(2500, 1200, "Left", true),
-				new SpikyZombie(2000, 1300, "Left", true)
+		Zombie[] enemies= {new Zombie(1000, 1300, "Left", true), new JumpingZombie(2000, 1300, "Left", true), 
+				new Shooter(2250, 1200, "Left", true), new SpikyZombie(3000, 1300, "Left", true)
 		};
 		
 	//Hostile images
@@ -72,15 +71,16 @@ public class MarioBoard extends JPanel implements ActionListener  {
 		
 	//Spikes
 		public Spike[] spikes= {
-				new Spike(-700, 1200), new Spike(-800, 1200),
-				new Spike(-900, 1200), new Spike (-2800, 1200)
+				//new Spike(-700, 1200), new Spike(-800, 1200),
+				//new Spike(-900, 1200), new Spike (-2800, 1200)
 		};
 		
 	//Walls
 		public Wall[] walls= {
-				new Wall(0, 1500, 4000, 300), new Wall(-4500, 1500, 1000, 300),
-				new Wall(-500, 1300, 1000, 200), new Wall(-2500, 1300, 500, 200),
-				new Wall(-6000, 1500, 500, 200)
+				new Wall(0, 1500, 8000, 300), new Wall(-500, 1300, 500, 200), 
+				new Wall(-1500, 1300, 500, 200), new Wall(-2500, 1300, 500, 200),
+				new Wall(-3500, 1300, 500, 200)
+				//new Wall(-6000, 1500, 500, 200)
 		};
 	public MarioBoard() {
 
@@ -356,7 +356,7 @@ public class MarioBoard extends JPanel implements ActionListener  {
 				if(enemies[i] instanceof Shooter) {
 					enemyIcons[i]=new ImageIcon("marioImagesNew/enemies/Shooter/ShooterWait"+enemies[i].getDirection()+".png");
 					if(proximity(Math.abs(distance-mario.getX()), enemies[i].getX(), 1000)) {
-						((Shooter)enemies[i]).shoot(mario.getX(), mario.getY());
+						((Shooter)enemies[i]).shoot(Math.abs(distance)-mario.getX(), mario.getY());
 						enemyIcons[i]=new ImageIcon("marioImagesNew/enemies/Shooter/ShooterShoot"+enemies[i].getDirection()+".png");
 					}
 				}

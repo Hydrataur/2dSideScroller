@@ -18,20 +18,13 @@ var Cube = function(center, side) {
         new Vertex(center.x - d, center.y - d, center.z - d),
         new Vertex(center.x + d, center.y - d, center.z - d),
         new Vertex(center.x + d, center.y - d, center.z + d),
-        new Vertex(center.x + d, center.y + d, center.z + d),
-        new Vertex(center.x + d, center.y + d, center.z - d),
-        new Vertex(center.x - d, center.y + d, center.z - d),
-        new Vertex(center.x - d, center.y + d, center.z + d)
+ 
     ];
 
     // Generate the faces
     this.faces = [
         [this.vertices[0], this.vertices[1], this.vertices[2], this.vertices[3]],
-    //    [this.vertices[3], this.vertices[2], this.vertices[5], this.vertices[4]],
-    //    [this.vertices[4], this.vertices[5], this.vertices[6], this.vertices[7]],
-      //  [this.vertices[7], this.vertices[6], this.vertices[1], this.vertices[0]],
-      //  [this.vertices[7], this.vertices[0], this.vertices[3], this.vertices[4]],
-      //  [this.vertices[1], this.vertices[6], this.vertices[5], this.vertices[2]]
+
     ];
 };
 
@@ -134,7 +127,7 @@ function render(objects, ctx, dx, dy) {
             var theta = (evt.clientX - mx) * Math.PI / 360;
             var phi = (evt.clientY - my) * Math.PI / 180;
 
-            for (var i = 0; i < 8; ++i)
+            for (var i = 0; i < 4; ++i)
                 rotate(cube.vertices[i], cube_center, theta, phi);
 
             mx = evt.clientX;
@@ -150,7 +143,7 @@ function render(objects, ctx, dx, dy) {
     }
 
     function autorotate() {
-        for (var i = 0; i < 8; ++i)
+        for (var i = 0; i < 4; ++i)
             rotate(cube.vertices[i], cube_center, -Math.PI / 720, Math.PI / 720);
 
         render(objects, ctx, dx, dy);
